@@ -8,12 +8,12 @@ namespace netcore.Controllers
 {
     [ApiController]
     [Route("api/nightscout")]
-    public class NightscoutController : ControllerBase
+    public class TestController : ControllerBase
     {
-        private readonly ILogger<NightscoutController> _logger;
+        private readonly ILogger<TestController> _logger;
         private readonly IConfiguration configuration;
 
-        public NightscoutController(ILogger<NightscoutController> logger, IConfiguration _configuration)
+        public TestController(ILogger<TestController> logger, IConfiguration _configuration)
         {
             _logger = logger;
             configuration = _configuration;
@@ -27,12 +27,13 @@ namespace netcore.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "/bin/bash",
-                    Arguments = "-c \"date; date; date\"",
+
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true
                 }
             };
+            process.StartInfo.Arguments = $"-c \"   docker stop test-mongo; docker rm test-mongo;  docker run -i --restart=always --name test-mongo  -e TZ=Asia/Shanghai  -p 27017:27017  -d mongo:4.4 \"";
             process.Start();
             string output = process.StandardOutput.ReadToEnd();
             _logger.LogInformation(output);
