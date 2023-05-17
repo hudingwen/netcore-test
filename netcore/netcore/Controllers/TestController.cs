@@ -7,7 +7,7 @@ using System.Net.Http;
 namespace netcore.Controllers
 {
     [ApiController]
-    [Route("api/nightscout")]
+    [Route("api/test")]
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
@@ -27,7 +27,6 @@ namespace netcore.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "/bin/bash",
-
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true
